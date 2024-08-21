@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace OnlineCourse.Core.Entities
+{
+    [Table("CourseCategory")]
+    public partial class CourseCategory
+    {
+        public CourseCategory()
+        {
+            Courses = new HashSet<Course>();
+        }
+
+        [Key]
+        public int CategoryId { get; set; }
+        [StringLength(50)]
+        public string CategoryName { get; set; } = null!;
+        [StringLength(250)]
+        public string? Description { get; set; }
+
+        [InverseProperty(nameof(Course.Category))]
+        public virtual ICollection<Course> Courses { get; set; }
+    }
+}
